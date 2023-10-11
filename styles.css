@@ -283,7 +283,7 @@ form input[type="submit"]:hover {
 .canales-deportivos li {
     width: calc(33.33% - 10px);
     margin-bottom: 20px;
-    background-color: #f9f9f9;
+    background-color: #bdb5b5;
     padding: 20px;
     text-align: center;
     border: 1px solid #ccc;
