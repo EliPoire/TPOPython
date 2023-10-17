@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Últimos 5 partidos de la Copa Libertadores en Argentina</title>
+  </head>
+  <body>
+    <h1>Últimos 5 partidos de la Copa Libertadores en Argentina</h1>
+    <ul id="matchesList"></ul>
+
+    <script>
+            const api_key = "037d6481278143f9838d14960451717b";
+
+            // Función para mostrar los partidos en la página
+            function mostrarPartidos() {
+              const matchesList = document.getElementById("matchesList");
+              matchesList.innerHTML = "";
+              const url = "https://api.football-data.org/v4/competitions";
+              const api_key = "037d6481278143f9838d14960451717b";
+
+              // Realiza una solicitud a la API para obtener los últimos 5 partidos
+             
+
+
+
+      // Primero, obtén el ID de la Copa Libertadores
+      fetch(`${url}/`, {
+        method: 'GET',
+        headers: {
+          'X-Auth-Token': api_key
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Error al obtener la lista de competiciones.');
+          }
+        })
+        .then(data => {
+          const copaLibertadoresId = data.competitions.find(competition => competition.name === 'Copa Libertadores').id;
+
+          // Ahora, obtén los últimos 4 partidos jugados en Argentina en la Copa Libertadores
+          const matchesUrl = `https://api.football-data.org/v4/competitions/${copaLibertadoresId}/matches?status=FINISHED&limit=4&venue=AWAY`;
+
+          fetch(matchesUrl, {
+            method: 'GET',
+            headers: {
+              'X-Auth-Token': api_key
+            }
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Error al obtener los últimos partidos de la Copa Libertadores en Argentina.');
+              }
+            })
+            .then(data => {
+              // Procesa los datos de los últimos 4 partidos de la Copa Libertadores en Argentina
+              console.log(data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
+            // Llama a la función para mostrar los últimos 5 partidos
+            mostrarPartidos();
+    </script>
+  </body>
+</html>
