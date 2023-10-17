@@ -192,7 +192,7 @@ form input[type="submit"]:hover {
 
 
 #inicio {
-    background-image: url('/css/img/banner.png');
+    background-image: url('../css/img/banner.png');
     background-size: cover;
     background-position: center;
     color: #fff;
