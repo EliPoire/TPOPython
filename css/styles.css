@@ -272,6 +272,10 @@ form input[type="submit"]:hover {
     .evento {
         margin-bottom: 20px;
     }
+
+    video {
+        width: 90%;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -312,15 +316,19 @@ form input[type="submit"]:hover {
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
+
 }
 
 .grid-video1 {
-    text-align: center; /* Alinea el contenido del grid-item al centro */
+    text-align: center;
+    /* Alinea el contenido del grid-item al centro */
 }
 
 video {
-    max-width: 100%; /* Asegura que el video no supere el ancho de su contenedor */
+    max-width: 100%;
+    /* Asegura que el video no supere el ancho de su contenedor */
 }
-p{
-    color:red
+
+p {
+    color: red
 }
