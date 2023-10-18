@@ -313,3 +313,14 @@ form input[type="submit"]:hover {
         gap: 30px;
     }
 }
+
+.grid-video1 {
+    text-align: center; /* Alinea el contenido del grid-item al centro */
+}
+
+video {
+    max-width: 100%; /* Asegura que el video no supere el ancho de su contenedor */
+}
+p{
+    color:red
+}
