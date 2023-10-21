@@ -2,75 +2,54 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Últimos 5 partidos de la Copa Libertadores en Argentina</title>
+    <title>Equipos de primera division Argentina</title>
+    <style>
+      img{
+        width: 100px;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
     <h1>Últimos 5 partidos de la Copa Libertadores en Argentina</h1>
-    <ul id="matchesList"></ul>
+    <ul id="eventTableBody"></ul>
 
     <script>
-            const api_key = "037d6481278143f9838d14960451717b";
+      const apiUrl =
+        "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=Argentinian%20Primera%20Division";
 
-            // Función para mostrar los partidos en la página
-            function mostrarPartidos() {
-              const matchesList = document.getElementById("matchesList");
-              matchesList.innerHTML = "";
-              const url = "https://api.football-data.org/v4/competitions";
-              const api_key = "037d6481278143f9838d14960451717b";
-
-              // Realiza una solicitud a la API para obtener los últimos 5 partidos
-             
-
-
-
-      // Primero, obtén el ID de la Copa Libertadores
-      fetch(`${url}/`, {
-        method: 'GET',
-        headers: {
-          'X-Auth-Token': api_key
-        }
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Error al obtener la lista de competiciones.');
+      fetch(apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error de red - ${response.status}`);
           }
+          return response.json();
         })
-        .then(data => {
-          const copaLibertadoresId = data.competitions.find(competition => competition.name === 'Copa Libertadores').id;
+        .then((data) => {
+          // Aquí puedes trabajar con los datos obtenidos de la API
+          console.log(data.teams);
+      
+          
+            const eventTableBody = document.getElementById("eventTableBody");
 
-          // Ahora, obtén los últimos 4 partidos jugados en Argentina en la Copa Libertadores
-          const matchesUrl = `https://api.football-data.org/v4/competitions/${copaLibertadoresId}/matches?status=FINISHED&limit=4&venue=AWAY`;
-
-          fetch(matchesUrl, {
-            method: 'GET',
-            headers: {
-              'X-Auth-Token': api_key
-            }
-          })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Error al obtener los últimos partidos de la Copa Libertadores en Argentina.');
-              }
-            })
-            .then(data => {
-              // Procesa los datos de los últimos 4 partidos de la Copa Libertadores en Argentina
-              console.log(data);
-            })
-            .catch(error => {
-              console.error(error);
+            data.teams.forEach((event) => {
+              
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                    <td>${event.strTeam}</td>
+                 
+                    <td>${event.strStadiumLocation}</td>
+                    <td>${event.intFormedYear}</td>
+                    <img src="${event.strTeamBadge}"/>
+                `;
+              eventTableBody.appendChild(row);
             });
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
+          }
 
-            // Llama a la función para mostrar los últimos 5 partidos
-            mostrarPartidos();
+        )
+        .catch((error) => {
+          console.error(`Hubo un error al obtener los datos: ${error}`);
+        });
     </script>
   </body>
 </html>
