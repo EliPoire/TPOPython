@@ -246,6 +246,35 @@ form input[type="submit"]:hover {
     margin-top: 10px;
 }
 
+
+td img{
+    width:80px;
+}table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+  main ul{margin:0 10% 0 10%;}
+  
+  @media (max-width: 600px) {
+    table {
+      overflow-x: auto;
+    }
+    main ul{margin:0 ;
+    padding: 0;
+}
+tr td{padding-left: 0;
+padding-right: 0;}
+
+  }
+
 @media (max-width: 768px) {
     .canales-deportivos li {
         width: 100%;
