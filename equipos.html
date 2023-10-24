@@ -61,7 +61,7 @@
     <script>
       const apiUrl =
         "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=Argentinian%20Primera%20Division";
-
+    
       fetch(apiUrl)
         .then((response) => {
           if (!response.ok) {
@@ -70,35 +70,35 @@
           return response.json();
         })
         .then((data) => {
-          // Aquí puedes trabajar con los datos obtenidos de la API
-          console.log(data.teams);
-      
-          
-            const eventTableBody = document.getElementById("eventTableBody");
-            const row1 = document.createElement("tr");
-           row1.innerHTML = `
-                    <td>Nombre</td>
-                 
-                    <td>Ubicacion</td>
-                    <td>Año</td>
-                    <td>Escudo</td>
-                `;
-                eventTableBody.appendChild(row1);
-            data.teams.forEach((event) => {
-              
+          const eventTableBody = document.getElementById("eventTableBody");
+          const teams = data.teams;
+    
+          if (teams.length > 0) {
+            const table = document.createElement("table");
+            table.innerHTML = `
+              <tr>
+                <th>Nombre</th>
+                <th>Ubicación</th>
+                <th>Año</th>
+                <th>Escudo</th>
+              </tr>
+            `;
+            eventTableBody.appendChild(table);
+    
+            teams.forEach((team) => {
               const row = document.createElement("tr");
               row.innerHTML = `
-                    <td>${event.strTeam}</td>
-                 
-                    <td>${event.strStadiumLocation}</td>
-                    <td>${event.intFormedYear}</td>
-                    <td><img src="${event.strTeamBadge}"/></td>
-                `;
-              eventTableBody.appendChild(row);
+                <td>${team.strTeam}</td>
+                <td>${team.strStadiumLocation}</td>
+                <td>${team.intFormedYear}</td>
+                <td><img src="${team.strTeamBadge}" alt="Escudo del equipo"/></td>
+              `;
+              table.appendChild(row);
             });
+          } else {
+            eventTableBody.innerHTML = "No se encontraron equipos.";
           }
-
-        )
+        })
         .catch((error) => {
           console.error(`Hubo un error al obtener los datos: ${error}`);
         });
